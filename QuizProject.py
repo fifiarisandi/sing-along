@@ -36,11 +36,14 @@ def fill_in_the_blanks(level,sequence):
     if level=="easy-peasy":
         easy_song_split=easy_song.split()
         for word in easy_song_split:
-            if str(sequence) in word:
-                word=word.replace(word, easy_answers[sequence-1])
-                replaced.append(word)
-            else:
-                replaced.append(word)
+        	replacement = "__" + str(sequence) + "__"
+        	word = word.replace(replacement, easy_answers[sequence-1])
+        	replaced.append(word)
+            #if str(sequence) in word:
+            #    word=word.replace(word, easy_answers[sequence-1])
+            #replaced.append(word)
+            #else:
+            #    replaced.append(word)
         easy_song=" ".join(replaced)
         return easy_song
 
