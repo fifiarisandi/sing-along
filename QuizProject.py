@@ -1,66 +1,132 @@
+from random import randint
+
 easy_song = '''You put your right hand __1__, you take your right hand __2__, 
 			you put your right hand __1__, and you __3__ it all about.
 			You do the __4__ pokey, and you __5__ yourself around.
 			That's what it's all about!'''
 
 easy_answers = ["in", "out", "shake", "hokey", "turn"]
+#amateur_answers = 
 levels = ["easy-peasy", "amateur", "pro-wannabe", "song-master"]
 
-def easy(level, sequence, answer):
-	count=3
-	next=False
+#def random_level():
+#    random_num = randint(0,3)
+#    if random_num == 0:
+#        return "easy-peasy"
+#    elif random_num == 1:
+#        return "amateur"
+#    elif random_num ==2:
+#    	return "pro-wannabe"
+#    else:
+#    	return "song-master"
+
+def random_answer():
+	random_num = randint(0,2)
+	if random_num == 0:
+		return "in"
+	elif random_num == 1:
+	    return "out"
+	else:
+		return "shake"
+
+def fill_in_the_blanks(level,sequence):
+    global easy_song
+    easy_song_split=[]
+    replaced=[]
+    if level=="easy-peasy":
+        easy_song_split=easy_song.split()
+        for word in easy_song_split:
+            if str(sequence) in word:
+                word=word.replace(word, easy_answers[sequence-1])
+                replaced.append(word)
+            else:
+                replaced.append(word)
+        easy_song=" ".join(replaced)
+        return easy_song
+
+def easy(sequence):
 	if sequence==0:
-		#if level=="easy-peasy":
-		answer_input = raw_input("You choose " + level + "\n" + "Don't worry if you can't guess it right the first time, you have 3 chances to make it right! \n" + "Let's sing along! \n" + easy_song + "\n" + "What do you think the right word to fill __1__?")
-		count=count-1
-		if answer_input!=easy_answers[sequence]:
-			while count>0:
-				answer_input = raw_input("That's probably another song. Try again! You have " + count + " chances left")
-				if answer_input==easy_answers[sequence]:
-					next=True
-					break
-				count=count-1
-			if next==False:
-				return "It looks like you never heard this song before. No worries though, you can try again anytime you're ready!"
+		print "You chose easy-peasy. Don't worry if you can't guess it right the first time, you have 3 chances to do it. Let's sing along! \n" + easy_song + "\n" + "What is the answer for__1__?"
+		#answer=random_answer()
+		answer="in"
+		if answer==easy_answers[sequence]:
+			return sequence+1
 		else:
-			next=True
-	elif next==True:
-		#elif sequence==1:
-		count=count-1
-			while count>0:
-				if answer_input==easy_answers[sequence]:
-					return True, sequence+1
-				else:
-					answer_input = raw_input("You have " + count + " chances to make it right! \n" + "Let's sing along! \n" + easy_song + "\n" + "What do you think the right word to fill __2__?")
-				count=count-1
-			return False, len(easy_answers)	
-
-
-def fill_in_the_blanks(sequence, level):
-	if level=="easy-peasy":
-		easy_song_split=easy_song.split()
-		for word in easy_song_split:
-			if sequence in word:
-				word=word.replace(word, easy_answers[0])
-		easy_song=" ".join(easy_song_split)
-		return easy_song
-
+			return sequence
+	elif sequence==1:
+		print easy_song + "\n" + "What is the answer for __2__?"
+		#answer=random_answer()
+		answer="out"
+		if answer==easy_answers[sequence]:
+			return sequence+1
+		else:
+			return sequence
+	elif sequence==2:
+	    print easy_song + "\n" + "What is the answer for __3__?"
+	    answer="shake"
+	    if answer==easy_answers[sequence]:
+	        return sequence+1
+	    else:
+	        return sequence
+	elif sequence==3:
+	    print easy_song + "\n" + "What is the answer for __4__?"
+	    answer="hokey"
+	    if answer==easy_answers[sequence]:
+	        return sequence+1
+	    else:
+	        return sequence
+	elif sequence==4:
+	    print easy_song + "\n" + "What is the answer for __5__?"
+	    answer="turn"
+	    if answer==easy_answers[sequence]:
+	        return sequence+1
+	    else:
+	        return sequence
 
 def lets_sing_along():
-	seq=0
-	level_input = raw_input("Choose your level: easy-peasy  amateur  pro-wannabe  song-master")
-	if level_input in levels:
-		if level_input=="easy-peasy":
-			message=easy() 
+	sequence=0
+	#level=random_level
+	level="easy-peasy"
+	if level=="easy-peasy":
+		new_sequence=easy(sequence)
+		if new_sequence==sequence:
+			return "That's not the right word, sorry!"
+		else:
+			print "You got that right!" + "\n" + fill_in_the_blanks(level,new_sequence)
+			sequence=new_sequence
+			new_sequence=easy(sequence)
+			if new_sequence==sequence:
+				return "That's not the right word, sorry!"
+			else:
+			    print "You got that right!" + "\n" + fill_in_the_blanks(level, new_sequence)
+			    sequence=new_sequence
+			    new_sequence=easy(sequence)
+			    if new_sequence==sequence:
+			        return "That's not the right word, sorry!"
+			    else:
+			        print "You got that right!" + "\n" + fill_in_the_blanks(level, new_sequence)
+			        sequence=new_sequence
+			        new_sequence=easy(sequence)
+			        if new_sequence==sequence:
+			            return "That's not the right word, sorry!"
+			        else:
+			            print "You got that right!" + "\n" + fill_in_the_blanks(level, new_sequence)
+			            sequence=new_sequence
+			            new_sequence=easy(sequence)
+			            if new_sequence==sequence:
+			                return "That's not the right word, sorry!"
+			            else:
+			                return "Congratulations! You did it as good as my 4 years-old niece did! Let's sing along!" +"\n" + fill_in_the_blanks(level, new_sequence)
 
 
-			answer_status, seq = questions(level_input, seq, "")
-			if answer_status==False:
-				return "It looks like you never heard this song before. No worries though, you can try again anytime you're ready!"
-			elif answer_status==True and seq==1:
-				easy_song = fill_in_the_blanks(seq, level_input)
-				answer_input = raw_input("You got that right! \n" + easy_song + "\n" + "What do you think the right word to fill __2__?")
-				questions(level_input, seq, answer_input)
+print lets_sing_along()
+
+
+
+
+
+
+
 
 
 
