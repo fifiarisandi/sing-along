@@ -45,7 +45,7 @@ def fill_in_the_blanks(level,sequence):
 def wrong_chances(level,sequence,count,counter):
 	while count<counter:
 		if level == "easy-peasy":
-			answer = raw_input("Err.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __1__? ")
+			answer = raw_input("Err.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __" + str(sequence+1) + "__? ")
 			if answer == easy_answers[sequence]:
 				sequence+=1
 				break
@@ -59,7 +59,7 @@ def wrong_chances(level,sequence,count,counter):
 def easy(sequence,counter):
 	count=0
 	if sequence==0:
-		answer = raw_input("You chose easy-peasy! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + easy_song + "\n\n" + "What is your answer for__1__? ")
+		answer = raw_input("You chose easy-peasy! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + easy_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
 		count+=1
 		if answer==easy_answers[sequence]:
 			return sequence+1
@@ -67,28 +67,36 @@ def easy(sequence,counter):
 			sequence = wrong_chances("easy-peasy",sequence,count,counter)
 			return sequence
 	elif sequence==1:
-		answer = raw_input("\nWhat is your answer for __2__? ")
+		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
+		count+=1
 		if answer==easy_answers[sequence]:
 			return sequence+1
 		else:
+			sequence = wrong_chances("easy-peasy",sequence,count,counter)
 			return sequence
 	elif sequence==2:
-	    answer = raw_input("\nWhat is your answer for __3__? ")
+	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
+	    count+=1
 	    if answer==easy_answers[sequence]:
 	        return sequence+1
 	    else:
+	    	sequence = wrong_chances("easy-peasy",sequence,count,counter)
 	        return sequence
 	elif sequence==3:
-	    answer = raw_input("\nWhat is your answer for __4__? ")
+	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
+	    count+=1
 	    if answer==easy_answers[sequence]:
 	        return sequence+1
 	    else:
+	    	sequence = wrong_chances("easy-peasy",sequence,count,counter)
 	        return sequence
 	elif sequence==4:
-	    answer = raw_input("\nWhat is your answer for __5__? ")
+	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
+	    count+=1
 	    if answer==easy_answers[sequence]:
 	        return sequence+1
 	    else:
+	    	sequence = wrong_chances("easy-peasy",sequence,count,counter)
 	        return sequence
 
 def lets_sing_along():
@@ -104,27 +112,27 @@ def lets_sing_along():
 			sequence=new_sequence
 			new_sequence=easy(sequence,counter)
 			if new_sequence==sequence:
-				return "That's not the right lyric, sorry!"
+				return "Game over! You had your chances, but it seems like you need to upgrade your songs database. Try again anytime you're ready! Thanks for playing!"
 			else:
 			    print "You got that right!" + "\n\n" + fill_in_the_blanks(level, new_sequence)
 			    sequence=new_sequence
 			    new_sequence=easy(sequence,counter)
 			    if new_sequence==sequence:
-			        return "That's not the right lyric, sorry!"
+			        return "Game over! You had your chances, but it seems like you need to upgrade your songs database. Try again anytime you're ready! Thanks for playing!"
 			    else:
 			        print "You got that right!" + "\n\n" + fill_in_the_blanks(level, new_sequence)
 			        sequence=new_sequence
 			        new_sequence=easy(sequence,counter)
 			        if new_sequence==sequence:
-			            return "That's not the right lyric, sorry!"
+			            return "Game over! You had your chances, but it seems like you need to upgrade your songs database. Try again anytime you're ready! Thanks for playing!"
 			        else:
 			            print "You got that right!" + "\n\n" + fill_in_the_blanks(level, new_sequence)
 			            sequence=new_sequence
 			            new_sequence=easy(sequence,counter)
 			            if new_sequence==sequence:
-			                return "That's not the right lyric, sorry!"
+			                return "Game over! You had your chances, but it seems like you need to upgrade your songs database. Try again anytime you're ready! Thanks for playing!"
 			            else:
-			                return "Congratulations! You did it as good as my 4 years-old niece did! Let's sing along!" +"\n\n" + fill_in_the_blanks(level, new_sequence)
+			                return "Congratulations! You did it! You are as good as my 4 years-old niece! Now, let's sing along!" +"\n\n" + fill_in_the_blanks(level, new_sequence)
 
 
 print lets_sing_along()
