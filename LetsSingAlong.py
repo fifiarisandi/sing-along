@@ -42,12 +42,29 @@ def fill_in_the_blanks(level,sequence):
         easy_song=" ".join(replaced)
         return easy_song
 
+def wrong_chances(level,sequence,count,counter):
+	while count<counter:
+		if level == "easy-peasy":
+			answer = raw_input("Err.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __1__? ")
+			if answer == easy_answers[sequence]:
+				sequence+=1
+				break
+			else:
+				count+=1
+		if count==counter:
+			break
+	return sequence
+
+
 def easy(sequence):
+	count=0
 	if sequence==0:
 		answer = raw_input("You chose easy-peasy! Don't worry if you can't guess it right the first time, you have 3 chances to do it. Let's sing along! \n\n" + easy_song + "\n\n" + "What is your answer for__1__? ")
+		count+=1
 		if answer==easy_answers[sequence]:
 			return sequence+1
 		else:
+			sequence = wrong_chances("easy-peasy",sequence,count,3)
 			return sequence
 	elif sequence==1:
 		answer = raw_input("\nWhat is your answer for __2__? ")
