@@ -41,77 +41,88 @@ legend_answers = ["look", "only", "extraordinary", "adore", "love", "game", "bre
 #This function is to fill the blanks with the correct answers given by the player. 
 def fill_in_the_blanks(level,sequence):
     global easy_song, pro_song, allround_song, legend_song
-    easy_song_split=[]
     replaced=[]
+#    song_split=[]
     if level=="easy-peasy":
-        easy_song_split=easy_song.split()
-        for word in easy_song_split:
-        	replacement = "__" + str(sequence) + "__"
-        	word = word.replace(replacement, easy_answers[sequence-1])
-        	replaced.append(word)
-        easy_song=" ".join(replaced)
-        return easy_song
+    	global easy_song
+    	song_split=easy_song.split()
+    	answers_list=easy_answers
     elif level=="pro-wannabe":
-        pro_song_split=pro_song.split()
-        for word in pro_song_split:
-        	replacement = "__" + str(sequence) + "__"
-        	word = word.replace(replacement, pro_answers[sequence-1])
-        	replaced.append(word)
-        pro_song=" ".join(replaced)
-        return pro_song
+    	global pro_song
+    	song_split=pro_song.split()
+    	answers_list=pro_answers
     elif level=="all-rounder":
-        allround_song_split=allround_song.split()
-        for word in allround_song_split:
-        	replacement = "__" + str(sequence) + "__"
-        	word = word.replace(replacement, allround_answers[sequence-1])
-        	replaced.append(word)
-        allround_song=" ".join(replaced)
-        return allround_song
-    elif level=="legend":
-        legend_song_split=legend_song.split()
-        for word in legend_song_split:
-        	replacement = "__" + str(sequence) + "__"
-        	word = word.replace(replacement, legend_answers[sequence-1])
-        	replaced.append(word)
-        legend_song=" ".join(replaced)
-        return legend_song
+    	global allround_song
+    	song_split=allround_song.split()
+    	answers_list=allround_answers
+    else:
+    	global legend_song
+    	song_split=legend_song.split()
+    	answers_list=legend_answers
+#    song_split=song.split()
+    for word in song_split:
+    	replacement = "__" + str(sequence) + "__"
+    	word = word.replace(replacement, answers_list[sequence-1])
+    	replaced.append(word)
+    song=" ".join(replaced)
+    return song
+
+ #   if level=="easy-peasy":
+ #       easy_song_split=easy_song.split()
+ #       for word in easy_song_split:
+ #       	replacement = "__" + str(sequence) + "__"
+ #       	word = word.replace(replacement, easy_answers[sequence-1])
+ #       	replaced.append(word)
+ #       easy_song=" ".join(replaced)
+ #       return easy_song
+ #   elif level=="pro-wannabe":
+ #       pro_song_split=pro_song.split()
+ #       for word in pro_song_split:
+ #       	replacement = "__" + str(sequence) + "__"
+ #       	word = word.replace(replacement, pro_answers[sequence-1])
+ #       	replaced.append(word)
+ #       pro_song=" ".join(replaced)
+ #       return pro_song
+ #   elif level=="all-rounder":
+ #       allround_song_split=allround_song.split()
+ #       for word in allround_song_split:
+ #       	replacement = "__" + str(sequence) + "__"
+ #       	word = word.replace(replacement, allround_answers[sequence-1])
+ #       	replaced.append(word)
+ #       allround_song=" ".join(replaced)
+ #       return allround_song
+ #   elif level=="legend":
+ #       legend_song_split=legend_song.split()
+ #       for word in legend_song_split:
+ #       	replacement = "__" + str(sequence) + "__"
+ #       	word = word.replace(replacement, legend_answers[sequence-1])
+ #       	replaced.append(word)
+ #       legend_song=" ".join(replaced)
+ #       return legend_song
 
 
 #This function gives responds for wrong answers by players as many as they specified when they start playing the game
 #Its output is the sequence number which indicates whether or not the player eventually gives the correct answers.
 def wrong_chances(level,sequence,count,counter):
+	if level=="easy-peasy":
+		answers_list=easy_answers
+	elif level=="pro-wannabe":
+		answers_list=pro_answers
+	elif level=="all-rounder":
+		answers_list=allround_answers
+	elif level=="legend":
+		answers_list=legend_answers
 	while count<counter:
-		if level == "easy-peasy":
-			answer = raw_input("\nErr.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __" + str(sequence+1) + "__? ")
-			if answer == easy_answers[sequence]:
-				sequence+=1
-				break
-			else:
-				count+=1
-		elif level == "pro-wannabe":
-			answer = raw_input("\nErr.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __" + str(sequence+1) + "__? ")
-			if answer == pro_answers[sequence]:
-				sequence+=1
-				break
-			else:
-				count+=1
-		elif level == "all-rounder":
-			answer = raw_input("\nErr.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __" + str(sequence+1) + "__? ")
-			if answer == allround_answers[sequence]:
-				sequence+=1
-				break
-			else:
-				count+=1
-		elif level == "legend":
-			answer = raw_input("\nErr.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __" + str(sequence+1) + "__? ")
-			if answer == legend_answers[sequence]:
-				sequence+=1
-				break
-			else:
-				count+=1
+		answer = raw_input("\nErr.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __" + str(sequence+1) + "__? ")
+		if answer == answers_list[sequence]:
+			sequence+=1
+			break
+		else:
+			count+=1
 		if count==counter:
 			break
 	return sequence
+
 
 #This function iterates as many as the empty blanks in the easy-peasy level. It's only called when the player choose this level.
 #The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
@@ -125,7 +136,7 @@ def easy(sequence,counter):
 		else:
 			sequence = wrong_chances("easy-peasy",sequence,count,counter)
 			return sequence
-	elif sequence==1:
+	else:
 		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
 		count+=1
 		if answer==easy_answers[sequence]:
@@ -133,30 +144,7 @@ def easy(sequence,counter):
 		else:
 			sequence = wrong_chances("easy-peasy",sequence,count,counter)
 			return sequence
-	elif sequence==2:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==easy_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("easy-peasy",sequence,count,counter)
-	        return sequence
-	elif sequence==3:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==easy_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("easy-peasy",sequence,count,counter)
-	        return sequence
-	elif sequence==4:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==easy_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("easy-peasy",sequence,count,counter)
-	        return sequence
+
 
 #This function iterates as many as the empty blanks in the pro-wannabe level. It's only called when the player choose this level.
 #The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
@@ -170,7 +158,7 @@ def pro(sequence,counter):
 		else:
 			sequence = wrong_chances("pro-wannabe",sequence,count,counter)
 			return sequence
-	elif sequence==1:
+	else:
 		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
 		count+=1
 		if answer==pro_answers[sequence]:
@@ -178,30 +166,7 @@ def pro(sequence,counter):
 		else:
 			sequence = wrong_chances("pro-wannabe",sequence,count,counter)
 			return sequence
-	elif sequence==2:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==pro_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("pro-wannabe",sequence,count,counter)
-	        return sequence
-	elif sequence==3:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==pro_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("pro-wannabe",sequence,count,counter)
-	        return sequence
-	elif sequence==4:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==pro_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("pro-wannabe",sequence,count,counter)
-	        return sequence
+
 
 #This function iterates as many as the empty blanks in the all-rounder level. It's only called when the player choose this level.
 #The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
@@ -215,7 +180,7 @@ def allround(sequence,counter):
 		else:
 			sequence = wrong_chances("all-rounder",sequence,count,counter)
 			return sequence
-	elif sequence==1:
+	else:
 		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
 		count+=1
 		if answer==allround_answers[sequence]:
@@ -223,30 +188,7 @@ def allround(sequence,counter):
 		else:
 			sequence = wrong_chances("all-rounder",sequence,count,counter)
 			return sequence
-	elif sequence==2:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==allround_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("all-rounder",sequence,count,counter)
-	        return sequence
-	elif sequence==3:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==allround_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("all-rounder",sequence,count,counter)
-	        return sequence
-	elif sequence==4:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==allround_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("all-rounder",sequence,count,counter)
-	        return sequence
+
 
 #This function iterates as many as the empty blanks in the legend level. It's only called when the player choose this level. 
 #The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
@@ -260,7 +202,7 @@ def legend(sequence,counter):
 		else:
 			sequence = wrong_chances("legend",sequence,count,counter)
 			return sequence
-	elif sequence==1:
+	else:
 		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
 		count+=1
 		if answer==legend_answers[sequence]:
@@ -268,54 +210,7 @@ def legend(sequence,counter):
 		else:
 			sequence = wrong_chances("legend",sequence,count,counter)
 			return sequence
-	elif sequence==2:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==legend_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("legend",sequence,count,counter)
-	        return sequence
-	elif sequence==3:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==legend_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("legend",sequence,count,counter)
-	        return sequence
-	elif sequence==4:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==legend_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("legend",sequence,count,counter)
-	        return sequence
-	elif sequence==5:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==legend_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("legend",sequence,count,counter)
-	        return sequence
-	elif sequence==6:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==legend_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("legend",sequence,count,counter)
-	        return sequence
-	elif sequence==7:
-	    answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-	    count+=1
-	    if answer==legend_answers[sequence]:
-	        return sequence+1
-	    else:
-	    	sequence = wrong_chances("legend",sequence,count,counter)
-	        return sequence
+
 
 #This is the main function. The game is played by calling this function in the first place. 
 def lets_sing_along():
