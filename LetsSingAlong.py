@@ -41,8 +41,7 @@ legend_answers = ["look", "only", "extraordinary", "adore", "love", "game", "bre
 
 levels = ["easy-peasy", "pro-wannabe", "all-rounder", "legend"]
 
-#This function is to fill the blanks with the correct answers given by the player. 
-
+#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "easy-peasy" level.
 def fill_easy_blanks(sequence):
 	global easy_song
 	replaced=[]
@@ -54,6 +53,7 @@ def fill_easy_blanks(sequence):
 	easy_song = " ".join(replaced)
 	return easy_song
 
+#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "pro-wannabe" level.
 def fill_pro_blanks(sequence):
 	global pro_song
 	replaced=[]
@@ -65,6 +65,7 @@ def fill_pro_blanks(sequence):
 	pro_song = " ".join(replaced)
 	return pro_song
 
+#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "all-rounder" level.
 def fill_allround_blanks(sequence):
 	global allround_song
 	replaced=[]
@@ -76,6 +77,7 @@ def fill_allround_blanks(sequence):
 	allround_song = " ".join(replaced)
 	return allround_song
 
+#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "legend" level.
 def fill_legend_blanks(sequence):
 	global legend_song
 	replaced=[]
@@ -109,8 +111,8 @@ def wrong_chances(level,sequence,count,counter):
 			break
 	return sequence
 
-#This function iterates as many as the empty blanks in the easy-peasy level. It's only called when the player choose this level.
-#The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
+#This function handles the Q&A process in each level. It's called if the user choose the "easy-peasy" level.
+#The output (sequence number) is used to determine which message will be given to the player.
 def easy(sequence,counter):
 	count=0
 	if sequence==0:
@@ -130,8 +132,8 @@ def easy(sequence,counter):
 			sequence = wrong_chances("easy-peasy",sequence,count,counter)
 			return sequence
 
-#This function iterates as many as the empty blanks in the pro-wannabe level. It's only called when the player choose this level.
-#The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
+#This function handles the Q&A process in each level. It's called if the user choose the "pro-wannabe" level.
+#The output (sequence number) is used to determine which message will be given to the player.
 def pro(sequence,counter):
 	count=0
 	if sequence==0:
@@ -151,8 +153,8 @@ def pro(sequence,counter):
 			sequence = wrong_chances("pro-wannabe",sequence,count,counter)
 			return sequence
 
-#This function iterates as many as the empty blanks in the all-rounder level. It's only called when the player choose this level.
-#The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
+#This function handles the Q&A process in each level. It's called if the user choose the "all-rounder" level.
+#The output (sequence number) is used to determine which message will be given to the player.
 def allround(sequence,counter):
 	count=0
 	if sequence==0:
@@ -172,8 +174,8 @@ def allround(sequence,counter):
 			sequence = wrong_chances("all-rounder",sequence,count,counter)
 			return sequence
 
-#This function iterates as many as the empty blanks in the legend level. It's only called when the player choose this level. 
-#The output (sequence number) is used in the main function (lets_sing_along) to determine which message will be given to the player.
+#This function handles the Q&A process in each level. It's called if the user choose the "legend" level.
+#The output (sequence number) is used to determine which message will be given to the player. 
 def legend(sequence,counter):
 	count=0
 	if sequence==0:
@@ -193,6 +195,7 @@ def legend(sequence,counter):
 			sequence = wrong_chances("legend",sequence,count,counter)
 			return sequence
 
+#This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "easy-peasy" level. 
 def easy_game(sequence,counter):
 	count=0
 	while count < len(easy_answers):
@@ -207,6 +210,7 @@ def easy_game(sequence,counter):
 			sequence=new_sequence
 		count+=1
 
+#This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "pro-wannabe" level.
 def pro_game(sequence,counter):
 	count=0
 	while count < len(pro_answers):
@@ -221,6 +225,7 @@ def pro_game(sequence,counter):
 			sequence=new_sequence
 		count+=1
 
+#This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "all-rounder" level.
 def allround_game(sequence,counter):
 	count=0
 	while count < len(allround_answers):
@@ -235,6 +240,7 @@ def allround_game(sequence,counter):
 			sequence=new_sequence
 		count+=1
 
+#This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "legend" level.
 def legend_game(sequence,counter):
 	count=0
 	while count < len(legend_answers):
@@ -265,7 +271,6 @@ def lets_sing_along():
 		return allround_game(sequence,counter)
 	else:
 		return legend_game(sequence,counter)
-
 
 
 print lets_sing_along()
