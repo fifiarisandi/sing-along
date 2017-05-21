@@ -246,8 +246,7 @@ def legend_game(sequence,counter):
 	while count < len(legend_answers):
 		new_sequence=legend(sequence,counter)
 		if new_sequence==sequence:
-			print fail_text
-			break
+			return fail_text
 		else:
 			if count==len(legend_answers)-1:
 				return "\nCongratulations! You did it! You really are a... wait for it... LEGEND! Now, let's sing along!" +"\n\n" + fill_legend_blanks(new_sequence) + "\n"
