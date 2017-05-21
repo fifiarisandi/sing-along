@@ -32,10 +32,6 @@ Take my heart and please don't __7__ it,
 __5__ was __8__ for me and you!'''
 
 correct_msg = "\nYou got that right!" + "\n\n"
-easy_success_text = "\nCongratulations! You did it! You are as good as my 4 years-old niece! Now, let's sing along!" +"\n\n"
-pro_success_text = "\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs! Try the next level if you think you are that good ;) Now, let's sing along!" +"\n\n" 
-allround_success_text = "\nCongratulations! You did it! Not bad, not bad at all! Try the next level if you dare ;) Now, let's sing along!" +"\n\n"
-legend_success_text = "\nCongratulations! You did it! You really are a... wait for it... LEGEND! Now, let's sing along!" +"\n\n"
 fail_text = "\nGame over! You had your chances, it seems like you need to upgrade your songs database. Try again anytime you're ready! Thanks for playing!\n"
 
 easy_answers = ["in", "out", "shake", "hokey", "turn"]
@@ -44,7 +40,6 @@ allround_answers = ["grace", "sweet", "wretch", "once", "found"]
 legend_answers = ["look", "only", "extraordinary", "adore", "love", "game", "break", "made"]
 
 levels = ["easy-peasy", "pro-wannabe", "all-rounder", "legend"]
-#blanks = [5,5,5,8]
 
 #This function is to fill the blanks with the correct answers given by the player. 
 
@@ -92,40 +87,6 @@ def fill_legend_blanks(sequence):
 	legend_song = " ".join(replaced)
 	return legend_song
 
-
- #   if level=="easy-peasy":
- #       easy_song_split=easy_song.split()
- #       for word in easy_song_split:
- #       	replacement = "__" + str(sequence) + "__"
- #       	word = word.replace(replacement, easy_answers[sequence-1])
- #       	replaced.append(word)
- #       easy_song=" ".join(replaced)
- #       return easy_song
- #   elif level=="pro-wannabe":
- #       pro_song_split=pro_song.split()
- #       for word in pro_song_split:
- #       	replacement = "__" + str(sequence) + "__"
- #       	word = word.replace(replacement, pro_answers[sequence-1])
- #       	replaced.append(word)
- #       pro_song=" ".join(replaced)
- #       return pro_song
- #   elif level=="all-rounder":
- #       allround_song_split=allround_song.split()
- #       for word in allround_song_split:
- #       	replacement = "__" + str(sequence) + "__"
- #       	word = word.replace(replacement, allround_answers[sequence-1])
- #       	replaced.append(word)
- #       allround_song=" ".join(replaced)
- #       return allround_song
- #   elif level=="legend":
- #       legend_song_split=legend_song.split()
- #       for word in legend_song_split:
- #       	replacement = "__" + str(sequence) + "__"
- #       	word = word.replace(replacement, legend_answers[sequence-1])
- #       	replaced.append(word)
- #       legend_song=" ".join(replaced)
- #       return legend_song
-
 #This function gives responds for wrong answers by players as many as they specified when they start playing the game
 #Its output is the sequence number which indicates whether or not the player eventually gives the correct answers.
 def wrong_chances(level,sequence,count,counter):
@@ -135,7 +96,7 @@ def wrong_chances(level,sequence,count,counter):
 		answers_list=pro_answers
 	elif level=="all-rounder":
 		answers_list=allround_answers
-	elif level=="legend":
+	else: 
 		answers_list=legend_answers
 	while count<counter:
 		answer = raw_input("\nErr.. That's not the right lyric, try again! You have " + str(counter-count) + " chances left. What is your answer for __" + str(sequence+1) + "__? ")
@@ -234,59 +195,59 @@ def legend(sequence,counter):
 
 def easy_game(sequence,counter):
 	count=0
-	new_sequence=0
 	while count < len(easy_answers):
-		new_sequence==easy(sequence,counter)
+		new_sequence=easy(sequence,counter)
 		if new_sequence==sequence:
 			return fail_text
 		else:
 			if count==len(easy_answers)-1:
-				return easy_success_text + fill_easy_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! You are as good as my 4 years-old niece! Now, let's sing along!" +"\n\n" + fill_easy_blanks(new_sequence) + "\n"
 			else:
 				print correct_msg + fill_easy_blanks(new_sequence)
+			sequence=new_sequence
 		count+=1
 
 def pro_game(sequence,counter):
 	count=0
-	new_sequence=sequence
 	while count < len(pro_answers):
-		new_sequence==pro(sequence,counter)
+		new_sequence=pro(sequence,counter)
 		if new_sequence==sequence:
 			return fail_text
 		else:
 			if count==len(pro_answers)-1:
-				return pro_success_text + fill_pro_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs! Try the next level if you think you are that good ;) Now, let's sing along!" +"\n\n" + fill_pro_blanks(new_sequence) + "\n"
 			else:
 				print correct_msg + fill_pro_blanks(new_sequence)
+			sequence=new_sequence
 		count+=1
 
 def allround_game(sequence,counter):
 	count=0
-	new_sequence=sequence
 	while count < len(allround_answers):
-		new_sequence==allround(sequence,counter)
+		new_sequence=allround(sequence,counter)
 		if new_sequence==sequence:
 			return fail_text
 		else:
 			if count==len(allround_answers)-1:
-				return allround_success_text + fill_allround_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! Not bad, not bad at all! Try the next level if you dare ;) Now, let's sing along!" +"\n\n" + fill_allround_blanks(new_sequence) + "\n"
 			else:
 				print correct_msg + fill_allround_blanks(new_sequence)
+			sequence=new_sequence
 		count+=1
 
 def legend_game(sequence,counter):
 	count=0
-	new_sequence=sequence
 	while count < len(legend_answers):
-		new_sequence==legend(sequence,counter)
+		new_sequence=legend(sequence,counter)
 		if new_sequence==sequence:
 			print fail_text
 			break
 		else:
 			if count==len(legend_answers)-1:
-				return legend_success_text + fill_legend_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! You really are a... wait for it... LEGEND! Now, let's sing along!" +"\n\n" + fill_legend_blanks(new_sequence) + "\n"
 			else:
 				print correct_msg + fill_legend_blanks(new_sequence)
+			sequence=new_sequence
 		count+=1
 
 #This is the main function. The game is played by calling this function in the first place. 
@@ -297,13 +258,14 @@ def lets_sing_along():
 		return "You don't type the right level name."
 	counter = int(raw_input("\nChoose how many wrong answers should we spare you? Type any positive numbers. "))
 	if level == levels[0]:
-		easy_game(sequence,counter)
+		return easy_game(sequence,counter)
 	elif level == levels[1]:
-		pro_game(sequence,counter)
+		return pro_game(sequence,counter)
 	elif level == levels[2]:
-		allround_game(sequence,counter)
+		return allround_game(sequence,counter)
 	else:
-		legend_game(sequence,counter)
+		return legend_game(sequence,counter)
+
 
 
 print lets_sing_along()
