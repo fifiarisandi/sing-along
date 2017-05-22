@@ -41,53 +41,41 @@ legend_answers = ["look", "only", "extraordinary", "adore", "love", "game", "bre
 
 levels = ["easy-peasy", "pro-wannabe", "all-rounder", "legend"]
 
-#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "easy-peasy" level.
-def fill_easy_blanks(sequence):
-	global easy_song
+#This function fills the empty blanks with the correct answers given by the player.
+def fill_in_the_blanks(level,sequence):
+	global easy_song, pro_song, allround_song, legend_song
 	replaced=[]
-	song_split=easy_song.split()
+	if level=="easy-peasy":
+		song_split=easy_song.split()
+	elif level=="pro-wannabe":
+		song_split=pro_song.split()
+	elif level=="all-rounder":
+		song_split=allround_song.split()
+	else:
+		song_split=legend_song.split()
 	for word in song_split:
 		replacement = "__" + str(sequence) + "__"
-		word = word.replace(replacement,easy_answers[sequence-1])
+		if level=="easy-peasy":
+			word = word.replace(replacement,easy_answers[sequence-1])
+		elif level=="pro-wannabe":
+			word = word.replace(replacement,pro_answers[sequence-1])
+		elif level=="all-rounder":
+			word = word.replace(replacement,allround_answers[sequence-1])
+		else:
+			word = word.replace(replacement,legend_answers[sequence-1])
 		replaced.append(word)
-	easy_song = " ".join(replaced)
-	return easy_song
-
-#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "pro-wannabe" level.
-def fill_pro_blanks(sequence):
-	global pro_song
-	replaced=[]
-	song_split=pro_song.split()
-	for word in song_split:
-		replacement = "__" + str(sequence) + "__"
-		word = word.replace(replacement,pro_answers[sequence-1])
-		replaced.append(word)
-	pro_song = " ".join(replaced)
-	return pro_song
-
-#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "all-rounder" level.
-def fill_allround_blanks(sequence):
-	global allround_song
-	replaced=[]
-	song_split=allround_song.split()
-	for word in song_split:
-		replacement = "__" + str(sequence) + "__"
-		word = word.replace(replacement,allround_answers[sequence-1])
-		replaced.append(word)
-	allround_song = " ".join(replaced)
-	return allround_song
-
-#This function is to fill the empty blanks with the correct answers given by the player. It's called when the player choose "legend" level.
-def fill_legend_blanks(sequence):
-	global legend_song
-	replaced=[]
-	song_split=legend_song.split()
-	for word in song_split:
-		replacement = "__" + str(sequence) + "__"
-		word = word.replace(replacement,legend_answers[sequence-1])
-		replaced.append(word)
-	legend_song = " ".join(replaced)
-	return legend_song
+	if level=="easy-peasy":
+		easy_song = " ".join(replaced)
+		return easy_song
+	elif level=="pro-wannabe":
+		pro_song = " ".join(replaced)
+		return pro_song
+	elif level=="all-rounder":
+		allround_song = " ".join(replaced)
+		return allround_song
+	else:
+		legend_song = " ".join(replaced)
+		return legend_song
 
 #This function gives responds for wrong answers by players as many as they specified when they start playing the game
 #Its output is the sequence number which indicates whether or not the player eventually gives the correct answers.
@@ -111,6 +99,7 @@ def wrong_chances(level,sequence,count,counter):
 			break
 	return sequence
 
+#This function handles the Q&A process in each level. The output (sequence number) is used to determine which message will be given to the player.
 def QAprocess(level,sequence,counter):
 	count=0
 	if sequence==0:
@@ -143,94 +132,34 @@ def QAprocess(level,sequence,counter):
 			else:
 				sequence = wrong_chances(level,sequence,count,counter)
 				return sequence
-		
 
-#This function handles the Q&A process in each level. It's called if the user choose the "easy-peasy" level.
-#The output (sequence number) is used to determine which message will be given to the player.
-'''def easy(sequence,counter):
+def game(level,sequence,counter):
 	count=0
-	if sequence==0:
-		answer = raw_input("\nYou chose easy-peasy! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + easy_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==easy_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("easy-peasy",sequence,count,counter)
-			return sequence
+	if level=="legend":
+		dfa
 	else:
-		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==easy_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("easy-peasy",sequence,count,counter)
-			return sequence'''
+		while count < len(easy_answers):
+			new_sequence=QAprocess(level,sequence,counter)
+			if new_sequence==sequence:
+				return fail_text
+			else:
+				if count==len(easy_answers)-1:
+					if level=="easy-peasy":
+						return "\nCongratulations! You did it! You are as good as my 4 years-old niece! Now, let's sing along!" +"\n\n" + fill_in_the_blanks(level,new_sequence) + "\n" 
+					elif level=="pro-wannabe":
+						return "\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs! Try the next level if you think you are that good ;) Now, let's sing along!" +"\n\n" + fill_in_the_blanks(level,new_sequence) + "\n"
+					elif level=="all-rounder":
+						return "\nCongratulations! You did it! Not bad, not bad at all! Try the next level if you dare ;) Now, let's sing along!" +"\n\n" + fill_in_the_blanks(level,new_sequence) + "\n"
+					else:
+						return "\nCongratulations! You did it! You really are a... wait for it... LEGEND! Now, let's sing along!" +"\n\n" + fill_in_the_blanks(level,new_sequence) + "\n"
+				else:
+					print correct_msg + fill_in_the_blanks(level,new_sequence)
+				sequence=new_sequence
+			count+=1
 
-#This function handles the Q&A process in each level. It's called if the user choose the "pro-wannabe" level.
-#The output (sequence number) is used to determine which message will be given to the player.
-'''def pro(sequence,counter):
-	count=0
-	if sequence==0:
-		answer = raw_input("\nYou chose pro-wannabe! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + pro_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==pro_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("pro-wannabe",sequence,count,counter)
-			return sequence
-	else:
-		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==pro_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("pro-wannabe",sequence,count,counter)
-			return sequence'''
-
-#This function handles the Q&A process in each level. It's called if the user choose the "all-rounder" level.
-#The output (sequence number) is used to determine which message will be given to the player.
-'''def allround(sequence,counter):
-	count=0
-	if sequence==0:
-		answer = raw_input("\nYou chose all-rounder! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + allround_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==allround_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("all-rounder",sequence,count,counter)
-			return sequence
-	else:
-		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==allround_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("all-rounder",sequence,count,counter)
-			return sequence'''
-
-#This function handles the Q&A process in each level. It's called if the user choose the "legend" level.
-#The output (sequence number) is used to determine which message will be given to the player. 
-'''def legend(sequence,counter):
-	count=0
-	if sequence==0:
-		answer = raw_input("\nYou chose legend! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + legend_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==legend_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("legend",sequence,count,counter)
-			return sequence
-	else:
-		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
-		count+=1
-		if answer==legend_answers[sequence]:
-			return sequence+1
-		else:
-			sequence = wrong_chances("legend",sequence,count,counter)
-			return sequence'''
 
 #This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "easy-peasy" level. 
-def easy_game(sequence,counter):
+'''def easy_game(sequence,counter):
 	count=0
 	while count < len(easy_answers):
 		new_sequence=QAprocess("easy-peasy",sequence,counter)
@@ -238,14 +167,14 @@ def easy_game(sequence,counter):
 			return fail_text
 		else:
 			if count==len(easy_answers)-1:
-				return "\nCongratulations! You did it! You are as good as my 4 years-old niece! Now, let's sing along!" +"\n\n" + fill_easy_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! You are as good as my 4 years-old niece! Now, let's sing along!" +"\n\n" + fill_in_the_blanks("easy-peasy",new_sequence) + "\n"
 			else:
-				print correct_msg + fill_easy_blanks(new_sequence)
+				print correct_msg + fill_in_the_blanks("easy-peasy",new_sequence)
 			sequence=new_sequence
-		count+=1
+		count+=1'''
 
 #This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "pro-wannabe" level.
-def pro_game(sequence,counter):
+'''def pro_game(sequence,counter):
 	count=0
 	while count < len(pro_answers):
 		new_sequence=QAprocess("pro-wannabe",sequence,counter)
@@ -253,14 +182,14 @@ def pro_game(sequence,counter):
 			return fail_text
 		else:
 			if count==len(pro_answers)-1:
-				return "\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs! Try the next level if you think you are that good ;) Now, let's sing along!" +"\n\n" + fill_pro_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs! Try the next level if you think you are that good ;) Now, let's sing along!" +"\n\n" + fill_in_the_blanks("pro-wannabe",new_sequence) + "\n"
 			else:
-				print correct_msg + fill_pro_blanks(new_sequence)
+				print correct_msg + fill_in_the_blanks("pro-wannabe",new_sequence)
 			sequence=new_sequence
-		count+=1
+		count+=1'''
 
 #This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "all-rounder" level.
-def allround_game(sequence,counter):
+'''def allround_game(sequence,counter):
 	count=0
 	while count < len(allround_answers):
 		new_sequence=QAprocess("all-rounder",sequence,counter)
@@ -268,11 +197,11 @@ def allround_game(sequence,counter):
 			return fail_text
 		else:
 			if count==len(allround_answers)-1:
-				return "\nCongratulations! You did it! Not bad, not bad at all! Try the next level if you dare ;) Now, let's sing along!" +"\n\n" + fill_allround_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! Not bad, not bad at all! Try the next level if you dare ;) Now, let's sing along!" +"\n\n" + fill_in_the_blanks("all-rounder",new_sequence) + "\n"
 			else:
-				print correct_msg + fill_allround_blanks(new_sequence)
+				print correct_msg + fill_in_the_blanks("all-rounder",new_sequence)
 			sequence=new_sequence
-		count+=1
+		count+=1'''
 
 #This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "legend" level.
 def legend_game(sequence,counter):
@@ -283,9 +212,9 @@ def legend_game(sequence,counter):
 			return fail_text
 		else:
 			if count==len(legend_answers)-1:
-				return "\nCongratulations! You did it! You really are a... wait for it... LEGEND! Now, let's sing along!" +"\n\n" + fill_legend_blanks(new_sequence) + "\n"
+				return "\nCongratulations! You did it! You really are a... wait for it... LEGEND! Now, let's sing along!" +"\n\n" + fill_in_the_blanks("legend",new_sequence) + "\n"
 			else:
-				print correct_msg + fill_legend_blanks(new_sequence)
+				print correct_msg + fill_in_the_blanks("legend",new_sequence)
 			sequence=new_sequence
 		count+=1
 
