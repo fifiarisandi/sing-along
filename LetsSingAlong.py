@@ -1,9 +1,9 @@
-easy_song = '''You put your right hand __1__, you take your right hand __2__, 
+'''easy_song = You put your right hand __1__, you take your right hand __2__, 
 you put your right hand __1__, and you __3__ it all about.
 You do the __4__ pokey, and you __5__ yourself around.
 That's what it's all about!'''
 
-pro_song = '''I'm in love with the __1__ of you, 
+'''pro_song = I'm in love with the __1__ of you, 
 we push and pull like a __2__ do.
 Although my heart is __3__ too,
 I'm in love with your __4__.
@@ -16,12 +16,12 @@ I'm in love with your __4__.
 Every day __5__ something brand new,
 I'm in love with the __1__ of you.'''
 
-allround_song = '''Amazing __1__, how __2__ the sound,
+'''allround_song = Amazing __1__, how __2__ the sound,
 that saved a __3__ like me. 
 I __4__ was lost, but now I'm __5__,
 was blind, but now I see.'''
 
-legend_song = '''L is for the way you __1__ at me, 
+'''legend_song = L is for the way you __1__ at me, 
 O is for the __2__ one I see,
 V is very, very __3__,
 E is even more than anyone that you __4__.
@@ -31,15 +31,34 @@ Two in __5__ can make it,
 Take my heart and please don't __7__ it, 
 __5__ was __8__ for me and you!'''
 
+game_data = {
+	'easy-peasy': {
+		'song':"You put your right hand __1__, you take your right hand __2__, you put your right hand __1__, and you __3__ it all about. You do the __4__ pokey, and you __5__ yourself around. That's what it's all about!",
+		'answers': ["in", "out", "shake", "hokey", "turn"]
+	},
+	'pro-wannabe': {
+		'song': "I'm in love with the __1__ of you, we push and pull like a __2__ do. Although my heart is __3__ too, I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Every day __5__ something brand new, I'm in love with the __1__ of you.",
+		'answers': ["shape", "magnet", "falling", "body", "discovering"]
+	},
+	'all-rounder': {
+		'song': "Amazing __1__, how __2__ the sound, that saved a __3__ like me. I __4__ was lost, but now I'm __5__, was blind, but now I see.",
+		'answers': ["grace", "sweet", "wretch", "once", "found"]
+	},
+	'legend': {
+		'song': "L is for the way you __1__ at me, O is for the __2__ one I see, V is very, very __3__, E is even more than anyone that you __4__. And __5__ is all that I can give to you, __5__ is more than just a __6__ for two. Two in __5__ can make it, Take my heart and please don't __7__ it, __5__ was __8__ for me and you!",
+		'answers': ["look", "only", "extraordinary", "adore", "love", "game", "break", "made"]
+	}
+}
+
 correct_msg = "\nYou got that right!" + "\n\n"
 fail_text = "\nGame over! You had your chances, it seems like you need to upgrade your songs database. Try again anytime you're ready! Thanks for playing!\n"
-
-easy_answers = ["in", "out", "shake", "hokey", "turn"]
-pro_answers = ["shape", "magnet", "falling", "body", "discovering"]
-allround_answers = ["grace", "sweet", "wretch", "once", "found"]
-legend_answers = ["look", "only", "extraordinary", "adore", "love", "game", "break", "made"]
-
 levels = ["easy-peasy", "pro-wannabe", "all-rounder", "legend"]
+
+#easy_answers = ["in", "out", "shake", "hokey", "turn"]
+#pro_answers = ["shape", "magnet", "falling", "body", "discovering"]
+#allround_answers = ["grace", "sweet", "wretch", "once", "found"]
+#legend_answers = ["look", "only", "extraordinary", "adore", "love", "game", "break", "made"]
+
 
 #This function fills the empty blanks with the correct answers given by the player.
 def fill_in_the_blanks(level,sequence):
