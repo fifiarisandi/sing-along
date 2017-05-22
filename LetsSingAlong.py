@@ -111,9 +111,43 @@ def wrong_chances(level,sequence,count,counter):
 			break
 	return sequence
 
+def QAprocess(level,sequence,counter):
+	count=0
+	if sequence==0:
+		if level=="easy-peasy":
+			answer = raw_input("\nYou chose easy-peasy! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + easy_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
+		elif level=="pro-wannabe":
+			answer = raw_input("\nYou chose pro-wannabe! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + pro_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
+		elif level=="all-rounder":
+			answer = raw_input("\nYou chose all-rounder! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + allround_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
+		else:
+			answer = raw_input("\nYou chose legend! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + legend_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
+		count+=1
+		if answer in [easy_answers[sequence], pro_answers[sequence], allround_answers[sequence], legend_answers[sequence]]:
+			return sequence+1
+		else:
+			sequence = wrong_chances(level,sequence,count,counter)
+			return sequence
+	else:
+		answer = raw_input("\nWhat is your answer for __" + str(sequence+1) + "__? ")
+		count+=1
+		if level=="legend":
+			if answer==legend_answers[sequence]:
+				return sequence+1
+			else:
+				sequence = wrong_chances("legend",sequence,count,counter)
+				return sequence
+		else:
+			if answer in [easy_answers[sequence], pro_answers[sequence], allround_answers[sequence]]:
+				return sequence+1
+			else:
+				sequence = wrong_chances(level,sequence,count,counter)
+				return sequence
+		
+
 #This function handles the Q&A process in each level. It's called if the user choose the "easy-peasy" level.
 #The output (sequence number) is used to determine which message will be given to the player.
-def easy(sequence,counter):
+'''def easy(sequence,counter):
 	count=0
 	if sequence==0:
 		answer = raw_input("\nYou chose easy-peasy! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + easy_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
@@ -130,11 +164,11 @@ def easy(sequence,counter):
 			return sequence+1
 		else:
 			sequence = wrong_chances("easy-peasy",sequence,count,counter)
-			return sequence
+			return sequence'''
 
 #This function handles the Q&A process in each level. It's called if the user choose the "pro-wannabe" level.
 #The output (sequence number) is used to determine which message will be given to the player.
-def pro(sequence,counter):
+'''def pro(sequence,counter):
 	count=0
 	if sequence==0:
 		answer = raw_input("\nYou chose pro-wannabe! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + pro_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
@@ -151,11 +185,11 @@ def pro(sequence,counter):
 			return sequence+1
 		else:
 			sequence = wrong_chances("pro-wannabe",sequence,count,counter)
-			return sequence
+			return sequence'''
 
 #This function handles the Q&A process in each level. It's called if the user choose the "all-rounder" level.
 #The output (sequence number) is used to determine which message will be given to the player.
-def allround(sequence,counter):
+'''def allround(sequence,counter):
 	count=0
 	if sequence==0:
 		answer = raw_input("\nYou chose all-rounder! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + allround_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
@@ -172,11 +206,11 @@ def allround(sequence,counter):
 			return sequence+1
 		else:
 			sequence = wrong_chances("all-rounder",sequence,count,counter)
-			return sequence
+			return sequence'''
 
 #This function handles the Q&A process in each level. It's called if the user choose the "legend" level.
 #The output (sequence number) is used to determine which message will be given to the player. 
-def legend(sequence,counter):
+'''def legend(sequence,counter):
 	count=0
 	if sequence==0:
 		answer = raw_input("\nYou chose legend! Don't worry if you can't guess it right the first time, you have " + str(counter) + " chances to do it. Let's sing along! \n\n" + legend_song + "\n\n" + "What is your answer for __" + str(sequence+1) + "__? ")
@@ -193,13 +227,13 @@ def legend(sequence,counter):
 			return sequence+1
 		else:
 			sequence = wrong_chances("legend",sequence,count,counter)
-			return sequence
+			return sequence'''
 
 #This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along) if the player choose "easy-peasy" level. 
 def easy_game(sequence,counter):
 	count=0
 	while count < len(easy_answers):
-		new_sequence=easy(sequence,counter)
+		new_sequence=QAprocess("easy-peasy",sequence,counter)
 		if new_sequence==sequence:
 			return fail_text
 		else:
@@ -214,7 +248,7 @@ def easy_game(sequence,counter):
 def pro_game(sequence,counter):
 	count=0
 	while count < len(pro_answers):
-		new_sequence=pro(sequence,counter)
+		new_sequence=QAprocess("pro-wannabe",sequence,counter)
 		if new_sequence==sequence:
 			return fail_text
 		else:
@@ -229,7 +263,7 @@ def pro_game(sequence,counter):
 def allround_game(sequence,counter):
 	count=0
 	while count < len(allround_answers):
-		new_sequence=allround(sequence,counter)
+		new_sequence=QAprocess("all-rounder",sequence,counter)
 		if new_sequence==sequence:
 			return fail_text
 		else:
@@ -244,7 +278,7 @@ def allround_game(sequence,counter):
 def legend_game(sequence,counter):
 	count=0
 	while count < len(legend_answers):
-		new_sequence=legend(sequence,counter)
+		new_sequence=QAprocess("legend",sequence,counter)
 		if new_sequence==sequence:
 			return fail_text
 		else:
