@@ -1,14 +1,18 @@
 game_data = {
 	'easy-peasy': {
-		'song':"You put your right hand __1__, you take your right hand __2__, you put your right hand __1__, and you __3__ it all about. You do the __4__ pokey, and you __5__ yourself around. That's what it's all about!",
+		'song':"You put your right hand __1__, you take your right hand __2__, you put your right hand __1__, and you __3__ it all about.\
+		 You do the __4__ pokey, and you __5__ yourself around. That's what it's all about!",
 		'answers': ["in", "out", "shake", "hokey", "turn"],
 		'success_msg':"\nCongratulations! You did it! You are as good as my 4 years-old niece!\n\nNow, let's sing along!\n\n",
 		'first_msg1':"\nYou chose easy-peasy! Don't worry if you can't guess it right the first time, you have "
 	},
 	'pro-wannabe': {
-		'song': "I'm in love with the __1__ of you, we push and pull like a __2__ do. Although my heart is __3__ too, I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Every day __5__ something brand new, I'm in love with the __1__ of you.",
+		'song': "I'm in love with the __1__ of you, we push and pull like a __2__ do. Although my heart is __3__ too, I'm in love with your __4__."\
+		 "Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__."\
+		 "Every day __5__ something brand new, I'm in love with the __1__ of you.",
 		'answers': ["shape", "magnet", "falling", "body", "discovering"],
-		'success_msg':"\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs! Try the next level if you think you are that good ;)\n\nNow, let's sing along!\n\n",
+		'success_msg':"\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs!\
+		 Try the next level if you think you are that good ;)\n\nNow, let's sing along!\n\n",
 		'first_msg1':"\nYou chose pro-wannabe! Don't worry if you can't guess it right the first time, you have "
 	},
 	'all-rounder': {
@@ -18,7 +22,9 @@ game_data = {
 		'first_msg1':"\nYou chose all-rounder! Don't worry if you can't guess it right the first time, you have "
 	},
 	'legend': {
-		'song': "L is for the way you __1__ at me, O is for the __2__ one I see, V is very, very __3__, E is even more than anyone that you __4__. And __5__ is all that I can give to you, __5__ is more than just a __6__ for two. Two in __5__ can make it, Take my heart and please don't __7__ it, __5__ was __8__ for me and you!",
+		'song': "L is for the way you __1__ at me, O is for the __2__ one I see, V is very, very __3__, E is even more than anyone that you __4__."\
+		 "And __5__ is all that I can give to you, __5__ is more than just a __6__ for two. Two in __5__ can make it,"\
+		 "Take my heart and please don't __7__ it, __5__ was __8__ for me and you!",
 		'answers': ["look", "only", "extraordinary", "adore", "love", "game", "break", "made"],
 		'success_msg':"\nCongratulations! You did it! You really are a... wait for it... LEGEND!\n\nNow, let's sing along!\n\n",
 		'first_msg1':"\nYou chose legend! Don't worry if you can't guess it right the first time, you have "
@@ -27,8 +33,8 @@ game_data = {
 
 messages = {
 	'first_msg2': " chances to do it. Let's sing along! \n\n", 'err_msg1':"\nErr.. That's not the right lyric, try again! You have ", 'err_msg2':" chances left.", 
-	'correct_msg':"\nYou got that right!" + "\n\n", 'fail_msg':"\nGame over! You had your chances, it seems like you need to upgrade your songs database. Try again anytime you're ready! Thanks for playing!\n", 
-	'q1':"\nWhat is your answer for __", 'q2':"__? "
+	'correct_msg':"\nYou got that right!" + "\n\n", 'fail_msg':"\nGame over! You had your chances, it seems like you need to upgrade your songs database.\
+	 Try again anytime you're ready! Thanks for playing!\n", 'q1':"\nWhat is your answer for __", 'q2':"__? "
 }
 
 
@@ -52,9 +58,9 @@ def wrong_chances(level,sequence,count,counter):
     """
     Input: wrong_chances takes level, sequence, count, and counter as input.
     Output: wrong_chances returns sequence number as output which indicates whether or not the player eventually gives the correct answers.
-    Behavior: This function gives responds for wrong answers by players as many as they specified when they start playing the game
-    """	
-	while count<counter:
+    Behavior: This function gives responds for wrong answers by players as many as they specified when they start playing the game.
+    """
+    while count<counter:
 		answer = raw_input(messages['err_msg1'] + str(counter-count) + messages['err_msg2'] + messages['q1'] + str(sequence+1) + messages['q2'])
 		if answer == game_data[level]['answers'][sequence]:
 			sequence+=1
@@ -63,7 +69,7 @@ def wrong_chances(level,sequence,count,counter):
 			count+=1
 		if count==counter:
 			break
-	return sequence
+    return sequence 
 
 
 def QAprocess(level,sequence,counter):
@@ -74,7 +80,8 @@ def QAprocess(level,sequence,counter):
 	"""
 	count=0
 	if sequence==0:
-		answer = raw_input(game_data[level]['first_msg1'] + str(counter) + messages['first_msg2'] + game_data[level]['song'] + "\n" + messages['q1'] + str(sequence+1) + messages['q2'])
+		answer = raw_input(game_data[level]['first_msg1'] + str(counter) + messages['first_msg2'] + game_data[level]['song'] + "\n" + messages['q1'] \
+			+ str(sequence+1) + messages['q2'])
 		count+=1
 		if answer==game_data[level]['answers'][sequence]:
 			return sequence+1
