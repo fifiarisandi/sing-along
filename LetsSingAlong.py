@@ -32,8 +32,12 @@ messages = {
 }
 
 
-#This function fills the empty blanks with the correct answers given by the player.
 def fill_in_the_blanks(level,sequence):
+	"""
+	Input: fill_in_the_blanks takes level and sequence as input.
+	Output: fill_in_the_blanks returns the song of the chosen level with its filled-in blanks. 
+	Behavior: This function fills the empty blanks with the correct answers given by the player.
+	"""
 	replaced=[]
 	song_split=game_data[level]['song'].split()
 	for word in song_split:
@@ -43,9 +47,13 @@ def fill_in_the_blanks(level,sequence):
 	game_data[level]['song'] = " ".join(replaced)
 	return game_data[level]['song']
 
-#This function gives responds for wrong answers by players as many as they specified when they start playing the game
-#Its output is the sequence number which indicates whether or not the player eventually gives the correct answers.
+
 def wrong_chances(level,sequence,count,counter):
+    """
+    Input: wrong_chances takes level, sequence, count, and counter as input.
+    Output: wrong_chances returns sequence number as output which indicates whether or not the player eventually gives the correct answers.
+    Behavior: This function gives responds for wrong answers by players as many as they specified when they start playing the game
+    """	
 	while count<counter:
 		answer = raw_input(messages['err_msg1'] + str(counter-count) + messages['err_msg2'] + messages['q1'] + str(sequence+1) + messages['q2'])
 		if answer == game_data[level]['answers'][sequence]:
@@ -57,8 +65,13 @@ def wrong_chances(level,sequence,count,counter):
 			break
 	return sequence
 
-#This function handles the Q&A process in each level. The output (sequence number) is used to determine which message will be given to the player.
+
 def QAprocess(level,sequence,counter):
+	"""
+	Input: QAprocess takes level, sequence, and counter as input.
+	Output: QAprocess returns sequence number as output, which is used to determine which message will be given to the player. 
+	Behavior: This function handles the Q&A process with the player in each level.
+	"""
 	count=0
 	if sequence==0:
 		answer = raw_input(game_data[level]['first_msg1'] + str(counter) + messages['first_msg2'] + game_data[level]['song'] + "\n" + messages['q1'] + str(sequence+1) + messages['q2'])
@@ -77,8 +90,14 @@ def QAprocess(level,sequence,counter):
 			sequence = wrong_chances(level,sequence,count,counter)
 			return sequence
 
-#This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along).
+
 def game(level,sequence,counter):
+	"""
+	Input: game takes level, sequence, and counter as input.
+	Output: game returns a message to the player depending on the status of the given answer. If the answer is correct, it will also return the song text that's
+			already filled in with the correct answer, along with the message. 
+	Behavior: This function iterates as many as the empty blanks in each level. It's called by the main function (lets_sing_along).
+	"""
 	count=0
 	while count < len(game_data[level]['answers']):
 		new_sequence=QAprocess(level,sequence,counter)
@@ -92,8 +111,14 @@ def game(level,sequence,counter):
 			sequence=new_sequence
 		count+=1
 
-#This is the main function. The game is played by calling this function in the first place. 
+
 def lets_sing_along():
+	"""
+	Input:lets_sing_along doesn't take any arguments as input as the input will be gotten from the player's answers to the given question.
+	Output: lets_sing_along returns a message to the player depending on the result of the game played by the player. It will give error message if the player 
+			types the wrong level name.
+	Behavior: This is the main function. The game is played by calling this function in the first place. It calls the relevant function to perform the game.
+	"""
 	sequence=0
 	level = raw_input("Let's sing along! \n\nChoose your level: \n easy-peasy \n pro-wannabe \n all-rounder \n legend\n\n")
 	if level not in game_data:
