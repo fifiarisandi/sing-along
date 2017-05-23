@@ -1,7 +1,7 @@
 game_data = {
 	'easy-peasy': {
-		'song':"You put your right hand __1__, you take your right hand __2__, you put your right hand __1__, and you __3__ it all about.\
-		 You do the __4__ pokey, and you __5__ yourself around. That's what it's all about!",
+		'song':"You put your right hand __1__, you take your right hand __2__, you put your right hand __1__, and you __3__ it all about."\
+		 "You do the __4__ pokey, and you __5__ yourself around. That's what it's all about!",
 		'answers': ["in", "out", "shake", "hokey", "turn"],
 		'success_msg':"\nCongratulations! You did it! You are as good as my 4 years-old niece!\n\nNow, let's sing along!\n\n",
 		'first_msg1':"\nYou chose easy-peasy! Don't worry if you can't guess it right the first time, you have "
@@ -11,8 +11,8 @@ game_data = {
 		 "Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__. Oh I oh I oh I oh I I'm in love with your __4__."\
 		 "Every day __5__ something brand new, I'm in love with the __1__ of you.",
 		'answers': ["shape", "magnet", "falling", "body", "discovering"],
-		'success_msg':"\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs!\
-		 Try the next level if you think you are that good ;)\n\nNow, let's sing along!\n\n",
+		'success_msg':"\nCongratulations! You did it! But, don't you think it was too easy? I mean, come on, everybody knows Ed Sheeran's songs!"\
+		 "Try the next level if you think you are that good ;)\n\nNow, let's sing along!\n\n",
 		'first_msg1':"\nYou chose pro-wannabe! Don't worry if you can't guess it right the first time, you have "
 	},
 	'all-rounder': {
@@ -33,8 +33,8 @@ game_data = {
 
 messages = {
 	'first_msg2': " chances to do it. Let's sing along! \n\n", 'err_msg1':"\nErr.. That's not the right lyric, try again! You have ", 'err_msg2':" chances left.", 
-	'correct_msg':"\nYou got that right!" + "\n\n", 'fail_msg':"\nGame over! You had your chances, it seems like you need to upgrade your songs database.\
-	 Try again anytime you're ready! Thanks for playing!\n", 'q1':"\nWhat is your answer for __", 'q2':"__? "
+	'correct_msg':"\nYou got that right!" + "\n\n", 'fail_msg':"\nGame over! You had your chances, it seems like you need to upgrade your songs database."\
+	 "Try again anytime you're ready! Thanks for playing!\n", 'q1':"\nWhat is your answer for __", 'q2':"__? "
 }
 
 
